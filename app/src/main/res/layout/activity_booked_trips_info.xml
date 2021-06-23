@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="20dp"
+    android:background="@drawable/background_login"
+
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HEADING"
+            android:textSize="24dp"
+            android:textColor="@color/white"
+            android:id="@+id/bookedHeading"
+            android:fontFamily="@font/montserrat_medium"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="15dp"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="40dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date of trip"
+                    android:textSize="16dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat_medium"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Duration"
+                    android:textSize="16dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat_medium"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distance"
+                    android:textSize="16dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat_medium"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    android:textSize="16dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat_medium"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date of trip"
+                    android:textSize="16dp"
+                    android:paddingVertical="8dp"
+                    android:id="@+id/bookedLeaveTime"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/open_sans_semibold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Participants"
+                    android:textSize="16dp"
+                    android:paddingVertical="8dp"
+                    android:id="@+id/bookedDuration"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/open_sans_semibold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DATE o trip"
+                    android:textSize="16dp"
+                    android:paddingVertical="8dp"
+                    android:id="@+id/bookedDistance"
+
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/open_sans_semibold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DATE o trip"
+                    android:textSize="16dp"
+                    android:paddingVertical="8dp"
+                    android:id="@+id/bookedPrice"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/open_sans_semibold"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bookedCancelBookingButton"
+            android:layout_width="113dp"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_button1"
+            android:text="Cancel booking"
+            android:textAllCaps="false"
+            android:layout_gravity="right"
+            android:textColor="@color/pastelGreen"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_medium"/>
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Driver"
+        android:textSize="24dp"
+        android:textColor="@color/white"
+        android:id="@+id/bookedDriverHeading"
+        android:paddingBottom="8dp"
+        android:fontFamily="@font/montserrat_medium"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NameHere"
+                android:id="@+id/bookedDriverName"
+                android:paddingVertical="8dp"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:fontFamily="@font/open_sans_semibold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PhoneHere"
+                android:id="@+id/bookedDriverPhone"
+                android:paddingVertical="8dp"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:fontFamily="@font/open_sans_semibold"/>
+
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/bookedDriverImage"
+            android:layout_height="80dp"
+            android:layout_width="80dp"
+            android:src="@drawable/ic_person_black_100dp"
+        />
+
+    </LinearLayout>
+</LinearLayout>
+

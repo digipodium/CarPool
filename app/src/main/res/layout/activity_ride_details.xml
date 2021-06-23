@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RideDetailsActivity"
+    android:background="@drawable/background_login">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+    <TextView
+        android:id="@+id/dateTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:text="Date of travel"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/montserrat_medium"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"/>
+
+
+    <EditText
+        android:id="@+id/dateEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hintlog"
+        android:backgroundTint="@color/white"
+        android:inputType="date"
+        android:hint="Enter Date"
+        android:fontFamily="@font/open_sans_semibold"
+        android:drawableStart="@drawable/ic_calendar_24dp"
+        android:drawablePadding="20dp"
+        app:layout_constraintTop_toBottomOf="@id/dateTxt"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:focusableInTouchMode="false"
+        />
+
+    <TextView
+        android:id="@+id/timeTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:text="Estimated time of departure"
+        app:layout_constraintTop_toBottomOf="@id/dateEdit"
+        android:fontFamily="@font/montserrat_medium"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"/>
+
+    <EditText
+        android:id="@+id/timeEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hintlog"
+        android:backgroundTint="@color/white"
+        android:inputType="time"
+        android:hint="Enter Time"
+        android:fontFamily="@font/open_sans_semibold"
+        android:drawableStart="@drawable/ic_clock_time__24dp"
+        android:drawablePadding="20dp"
+        app:layout_constraintTop_toBottomOf="@id/timeTxt"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:focusableInTouchMode="false"
+        />
+
+    <TextView
+        android:id="@+id/passengerTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:text="Max passengers"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/timeEdit"
+        android:fontFamily="@font/montserrat_medium"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"/>
+
+
+    <EditText
+        android:id="@+id/numberPicker"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hintlog"
+        android:backgroundTint="@color/white"
+        android:inputType="number"
+        android:text="4"
+        android:hint=""
+        android:fontFamily="@font/open_sans_semibold"
+        android:drawableStart="@drawable/ic_free_seat_24dp"
+        android:drawablePadding="20dp"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/passengerTxt"/>
+
+    <Button
+        android:id="@+id/plussBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button1"
+        android:textSize="28sp"
+        android:textColor="@color/pastelGreen"
+        android:textAllCaps="false"
+        android:text="+1"
+        android:fontFamily="@font/open_sans_semibold"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/numberPicker"
+        app:layout_constraintEnd_toStartOf="@id/minusBtn"
+        app:layout_constraintTop_toBottomOf="@id/passengerTxt"
+        android:onClick="addButtons"/>
+
+    <Button
+        android:id="@+id/minusBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button1"
+        android:textSize="28sp"
+        android:textColor="@color/pastelGreen"
+        android:textAllCaps="false"
+        android:text="-1"
+        android:fontFamily="@font/open_sans_semibold"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/plussBtn"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/passengerTxt"
+        android:onClick="addButtons"/>
+
+   <!-- <NumberPicker
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:solidColor="@android:color/transparent"
+        app:layout_constraintLeft_toRightOf="@id/guideline_left"
+        app:layout_constraintRight_toLeftOf="@id/guideline_right"
+
+        app:layout_constraintTop_toBottomOf="@id/passengerTxt"
+        android:id="@+id/numberPicker"/>-->
+
+
+    <TextView
+        android:id="@+id/pickUpRangeTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="PickUp range:"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/numberPicker"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right" />
+
+    <SeekBar
+        android:id="@+id/pickUpRangeValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/white"
+        android:progressDrawable="@drawable/custom_seekbar_progress"
+        android:thumb="@drawable/custom_seekbar_thumb"
+        app:layout_constraintTop_toBottomOf="@id/pickUpRangeTxt"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"/>
+
+    <TextView
+        android:id="@+id/rangeValueTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Minimum Passanger trip: 0km"
+        app:layout_constraintTop_toBottomOf="@id/pickUpRangeValue"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_left"
+        app:layout_constraintRight_toRightOf="@id/guideline_right"/>
+
+
+    <SeekBar
+        android:id="@+id/rangeValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/white"
+        android:progressDrawable="@drawable/custom_seekbar_progress"
+        android:thumb="@drawable/custom_seekbar_thumb"
+        app:layout_constraintTop_toBottomOf="@id/rangeValueTextView"
+        app:layout_constraintLeft_toRightOf="@id/guideline_left"
+        app:layout_constraintRight_toLeftOf="@id/guideline_right"/>
+
+
+    <TextView
+        android:id="@+id/examplePrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="Example km:\nPrice: 0eur"
+        android:fontFamily="@font/montserrat_medium"
+        android:background="@drawable/custom_edittext1"
+        app:layout_constraintTop_toBottomOf="@id/rangeValue"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"/>
+
+    <TextView
+        android:id="@+id/seekBarPriceText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:textColorHint="@color/white"
+        android:hint="Price: 0.030"
+        app:layout_constraintTop_toBottomOf="@id/examplePrice"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"/>
+
+    <SeekBar
+        android:id="@+id/priceSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/white"
+        android:progressDrawable="@drawable/custom_seekbar_progress"
+        android:thumb="@drawable/custom_seekbar_thumb"
+        android:progress="30"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarPriceText"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"/>
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/custom_button1"
+        android:textColor="@color/pastelGreen"
+        android:textAllCaps="false"
+        android:text="Confirm"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:fontFamily="@font/montserrat_medium"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/priceSeekBar" />
+
+    <!--<Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rangeValue"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="15dp"
+        android:textSize="15dp"
+        android:text="CONFIRM"
+        android:background="@drawable/bs_round" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

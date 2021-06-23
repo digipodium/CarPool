@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">CarPool</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid email</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiemFpZGthbWlsIiwiYSI6ImNrNXh2Z2xiYjBnazkzbHBkNG03enQ4NTYifQ.8sAJfK4lDkZ8hysdCxF-Ag</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="api_maps_key">not_available</string>
+    <!-- Strings used for fragments for navigation -->
+
+</resources>

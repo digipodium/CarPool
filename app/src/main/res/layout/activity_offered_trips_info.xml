@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="20dp"
+    android:background="@drawable/background_login"
+
+    >
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HEADING"
+        android:textSize="24dp"
+        android:textColor="@color/white"
+
+        android:id="@+id/headingTV"
+        android:fontFamily="@font/montserrat_medium"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="15dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="40dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of trip"
+                android:textSize="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_medium"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Duration"
+                android:textSize="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Participants"
+                android:textSize="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price per"
+                android:textSize="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Est. earnings(?)"
+                android:textSize="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/white"
+                android:tooltipText="80% of total trip cost"
+                android:fontFamily="@font/montserrat_medium"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of trip"
+                android:textSize="16dp"
+                android:paddingVertical="8dp"
+                android:id="@+id/leaveTimeTV"
+                android:textColor="@color/white"
+                android:fontFamily="@font/open_sans_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Participants"
+                android:textSize="16dp"
+                android:paddingVertical="8dp"
+                android:id="@+id/durationTV"
+                android:textColor="@color/white"
+                android:fontFamily="@font/open_sans_semibold"/>
+
+            <TextView
+                android:id="@+id/participantsAmountTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:text="DATE o trip"
+                android:textColor="@color/white"
+
+                android:textSize="16dp"
+                android:fontFamily="@font/open_sans_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DATE o trip"
+                android:textSize="16dp"
+                android:paddingVertical="8dp"
+                android:id="@+id/pricePerTV"
+                android:textColor="@color/white"
+                android:fontFamily="@font/open_sans_semibold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DATE o trip"
+                android:textSize="16dp"
+                android:id="@+id/priceTotalTV"
+                android:paddingVertical="8dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/open_sans_semibold"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/cancelTripButton"
+        android:layout_width="113dp"
+        android:layout_height="60dp"
+        android:background="@drawable/custom_button1"
+        android:text="Cancel trip"
+        android:textAllCaps="false"
+        android:layout_gravity="right"
+        android:textStyle="bold"
+        android:textColor="@color/pastelGreen"
+        android:fontFamily="@font/montserrat_medium" />
+
+</LinearLayout>

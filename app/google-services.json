@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "667349832741",
+    "project_id": "carpool-app-digiodium",
+    "storage_bucket": "carpool-app-digiodium.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667349832741:android:0fae272653531407de5bcc",
+        "android_client_info": {
+          "package_name": "com.op.carpool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667349832741-66sg0jqc3dus0im5j0bgl1kk1e14ghmu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe-INiQJsdqOcFfrSG0D66OY2Pqr6GdBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "667349832741-66sg0jqc3dus0im5j0bgl1kk1e14ghmu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
