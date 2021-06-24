@@ -39,7 +39,7 @@ public class RideDetailsActivity extends AppCompatActivity implements View.OnCli
     private String strDate;
     private String strTime;
     private int passengers = 4;
-    private float hinta = 0.03f;
+    private float hinta = 10.0f;
     private int range;
 
     EditText txtDate, txtTime, np;
@@ -150,7 +150,7 @@ public class RideDetailsActivity extends AppCompatActivity implements View.OnCli
         rangeValueTextView = (TextView) findViewById(R.id.rangeValueTextView);
         rangeValueTextView.setText("Minimum Passanger trip: " + intMatka + "km");
 
-        exampleTxt.setText("Example km: " + distance + " km \n" + "Price: " + String.format("%.2f", distance * 10) + " INR");
+        exampleTxt.setText("Example km: " + distance + " km \n" + "Price: " + String.format("%1f", distance * 10) + " INR");
 
         seekBar = (SeekBar) findViewById(R.id.priceSeekBar);
         seekBar2 = (SeekBar) findViewById(R.id.rangeValue);

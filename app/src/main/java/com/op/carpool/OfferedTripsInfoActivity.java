@@ -52,7 +52,7 @@ public class OfferedTripsInfoActivity extends AppCompatActivity implements View.
             dateOfTrip.setText(CalendarHelper.getFullTimeString(thisRoute.getLeaveTime()));
             duration.setText(thisRoute.getDuration());
             participants.setText(participantsAmount + " / " + (participantsAmount + thisRoute.getFreeSlots()));
-            pricePer.setText(df.format((double)thisRoute.getPrice() * (double)thisRoute.getDistance()) + " €");
+            pricePer.setText(df.format((double)thisRoute.getPrice() * (double)thisRoute.getDistance()) + " Rs");
             priceTotal.setText(df.format((double)thisRoute.getPrice() * (double)thisRoute.getDistance()*participantsAmount*0.8) + " €"); // 0.8 because we take 20%
 
         }

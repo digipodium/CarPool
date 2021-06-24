@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static String image;
     //-----------Applications settings button------------//
     final String[] itemListLoggedOut = {"Log In"};
-    final String[] itemListLoggedIn = {"Settings", "My Profile", "My rating", "About", "Sign Out"};
+    final String[] itemListLoggedIn = {"My Profile", "My rating", "About", "Sign Out"};
     private List<Route> myOfferedRidesInfoList = new ArrayList<>();
     private List<Route> myBookedRidesInfoList = new ArrayList<>();
 
@@ -91,10 +91,8 @@ public class MainActivity extends AppCompatActivity {
         if (FirebaseHelper.loggedIn) {
             builder.setItems(itemListLoggedIn, (dialog, which) -> {
                 switch (which) {
+
                     case 0:
-                        //Log.d("SWAG", "onClick: settings");
-                        break;
-                    case 1:
                         //Log.d("SWAG", "onClick: My Profile");
                         if (FirebaseHelper.loggedIn) {
                             DatabaseHandler db = new DatabaseHandler();
@@ -103,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                             FirebaseHelper.GoToLogin(getApplicationContext());
                         }
                         break;
-                    case 2:
+                    case 1:
                         //Log.d("SWAG", "onClick: My rating");
                         if (FirebaseHelper.loggedIn) {
                             Intent ratingIntent = new Intent(getApplicationContext(), RatingActivity.class);
@@ -112,14 +110,15 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "You are not signed in", Toast.LENGTH_LONG).show();
                         }
                         break;
-                    case 3:
+                    case 2:
                         //Log.d("SWAG", "onClick: About");
+                        new AlertDialog.Builder(this).setTitle("About us").setMessage("This app was developed for college going students that want to share rides and save fuel and also the environment").create().show();
                         break;
-                    case 4:
+                    case 3:
                         //Log.d("SWAG", "onClick: Sign Out");
                         if (FirebaseHelper.loggedIn) {
                             FirebaseAuth.getInstance().signOut();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             Toast.makeText(getApplicationContext(), "Signed out", Toast.LENGTH_LONG).show();
                             startActivity(intent);
@@ -132,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
             settingsDialog.getWindow().setDimAmount(0);
             settingsDialog.getWindow().setLayout(420, ConstraintLayout.LayoutParams.WRAP_CONTENT);
             settingsDialog.getWindow().setGravity(Gravity.TOP | Gravity.END);
-            settingsDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.settings_dialog_background));
         } else {
             builder.setItems(itemListLoggedOut, (dialog, which) -> {
                 if (which == 0) {

@@ -52,12 +52,11 @@
         <activity android:name=".OfferedTripsInfoActivity" />
         <activity
             android:name=".RouteActivity"
-            android:theme="@style/Theme.CarPool.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.CarPool.NoActionBar" />
         <activity android:name=".GetRideActivity" />
         <activity android:name=".RideDetailsActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ProfileActivity" android:theme="@style/Theme.CarPool.NoActionBar"/>
+
         <activity android:name=".SignUp" />
         <activity android:name=".CreateUserActivity" />
         <activity android:name=".EditProfileActivity" />

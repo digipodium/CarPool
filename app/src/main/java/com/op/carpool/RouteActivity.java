@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -34,6 +35,8 @@ import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.directions.v5.MapboxDirections;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
@@ -44,7 +47,11 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.style.layers.LineLayer;
+import com.mapbox.mapboxsdk.style.layers.Property;
+import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import com.mapbox.mapboxsdk.utils.BitmapUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -57,11 +64,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.mapbox.core.constants.Constants.PRECISION_6;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineCap;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineJoin;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
 
 
-public class RouteActivity extends AppCompatActivity implements  View.OnClickListener, OnMapReadyCallback {
+public class RouteActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
-    private static final String ROUTE_SOURCE_ID = "route-source-id";
     public static final String DISTANCE = "distance";
     public static final String TIME = "time";
     public static final String DEPARTURE = "departure";
@@ -70,6 +84,11 @@ public class RouteActivity extends AppCompatActivity implements  View.OnClickLis
     public static final String ENDCITY = "endcity";
     public static final String ORIGIN = "origin";
     public static final String DESTINATION = "destination";
+    private static final String ROUTE_LAYER_ID = "route-layer-id";
+    private static final String ROUTE_SOURCE_ID = "route-source-id";
+    private static final String ICON_LAYER_ID = "icon-layer-id";
+    private static final String ICON_SOURCE_ID = "icon-source-id";
+    private static final String RED_PIN_ICON_ID = "red-pin-icon-id";
     ArrayList<RideDetailPart> fullDetails = new ArrayList<>();
 
     int INTENT_ID = 8976;
@@ -97,6 +116,7 @@ public class RouteActivity extends AppCompatActivity implements  View.OnClickLis
     private TextView duration;
     private Point origin;
     private Point destination;
+    private Style style;
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -243,8 +263,8 @@ public class RouteActivity extends AppCompatActivity implements  View.OnClickLis
             details.putExtra(END, strfinish);
             details.putExtra(DEPARTURECITY, strdepartureCity);
             details.putExtra(ENDCITY, strFinishCity);
-            details.putExtra(ORIGIN,origin);
-            details.putExtra(DESTINATION,destination);
+            details.putExtra(ORIGIN, origin);
+            details.putExtra(DESTINATION, destination);
 
             startActivityForResult(details, INTENT_ID);
         } else if (v.getId() == R.id.stageBtn & locking == 0) {
@@ -356,20 +376,107 @@ public class RouteActivity extends AppCompatActivity implements  View.OnClickLis
         mMap.addMarker(place1);
         mMap.addMarker(place2);
         List<Point> waypoint = new ArrayList();
-        if (way1Lat != 0 && way1Lon != 0) {
+        if (way1Lat != 0.0 && way1Lon != 0.0) {
             waypoint.add(Point.fromLngLat(way1Lat, way1Lon));
         }
-        if (way2Lat != 0 && way2Lon != 0) {
+        if (way2Lat != 0.0 && way2Lon != 0.0) {
             waypoint.add(Point.fromLngLat(way2Lat, way2Lon));
         }
         origin = Point.fromLngLat(place1.getPosition().getLatitude(), place1.getPosition().getLongitude());
         destination = Point.fromLngLat(place2.getPosition().getLatitude(), place2.getPosition().getLongitude());
+        initSource(style);
+        initLayers(style);
+        getRoute(mMap, origin, destination, waypoint);
+        nextBtn.setEnabled(true);
+//        MapboxDirections.Builder builder = MapboxDirections.builder()
+//                .origin(origin)
+//                .destination(destination)
+//                .overview(DirectionsCriteria.OVERVIEW_FULL)
+//                .profile(DirectionsCriteria.PROFILE_DRIVING)
+//                .alternatives(true)
+//                .steps(true)
+//                .accessToken(getString(R.string.mapbox_access_token));
+//        if (waypoint.size() > 0) {
+//            builder.waypoints(waypoint);
+//        }
+//        MapboxDirections client = builder.build();
+//        client.enqueueCall(new Callback<DirectionsResponse>() {
+//            @Override
+//            public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+//                if (response.body() == null) {
+//                    Toast.makeText(RouteActivity.this, "No routes found, make sure you set the right user and access token.", Toast.LENGTH_LONG).show();
+//                    return;
+//                } else if (response.body().routes().size() < 1) {
+//                    Toast.makeText(RouteActivity.this, "No routes found", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//                currentRoute = response.body().routes().get(0);
+//                distance.setText(currentRoute.distance() + " km ");
+//                duration.setText(String.valueOf(currentRoute.duration()));
+//
+//                nextBtn.setEnabled(true);
+//                mMap.getStyle(style -> {
+//                    GeoJsonSource source = style.getSourceAs(ROUTE_SOURCE_ID);
+//                    if (source != null) {
+//                        Toast.makeText(RouteActivity.this, "setting route", Toast.LENGTH_SHORT).show();
+//                        Feature directionsRouteFeature = Feature.fromGeometry(LineString.fromPolyline(currentRoute.geometry(), PRECISION_6));
+//                        source.setGeoJson(directionsRouteFeature);
+//                        style.addSource(source);
+//                    } else {
+//                        Toast.makeText(RouteActivity.this, "source is null", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onFailure(Call<DirectionsResponse> call, Throwable t) {
+//                Toast.makeText(RouteActivity.this, "error:" + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place1.getPosition(), 10));
+    }
+
+
+    private void initSource(@NonNull Style loadedMapStyle) {
+        loadedMapStyle.addSource(new GeoJsonSource(ROUTE_SOURCE_ID));
+
+        GeoJsonSource iconGeoJsonSource = new GeoJsonSource(ICON_SOURCE_ID, FeatureCollection.fromFeatures(new Feature[]{
+                Feature.fromGeometry(Point.fromLngLat(origin.longitude(), origin.latitude())),
+                Feature.fromGeometry(Point.fromLngLat(destination.longitude(), destination.latitude()))}));
+        loadedMapStyle.addSource(iconGeoJsonSource);
+    }
+
+    private void initLayers(@NonNull Style loadedMapStyle) {
+        LineLayer routeLayer = new LineLayer(ROUTE_LAYER_ID, ROUTE_SOURCE_ID);
+
+        // Add the LineLayer to the map. This layer will display the directions route.
+        routeLayer.setProperties(
+                lineCap(Property.LINE_CAP_ROUND),
+                lineJoin(Property.LINE_JOIN_ROUND),
+                lineWidth(5f),
+                lineColor(Color.parseColor("#009688"))
+        );
+        loadedMapStyle.addLayer(routeLayer);
+
+        // Add the red marker icon image to the map
+        loadedMapStyle.addImage(RED_PIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(getResources().getDrawable(R.drawable.mapbox_marker_icon_default)));
+
+        // Add the red marker icon SymbolLayer to the map
+        loadedMapStyle.addLayer(new SymbolLayer(ICON_LAYER_ID, ICON_SOURCE_ID).withProperties(
+                iconImage(RED_PIN_ICON_ID),
+                iconIgnorePlacement(true),
+                iconAllowOverlap(true),
+                iconOffset(new Float[]{0f, -9f})));
+    }
+
+    private void getRoute(MapboxMap mapboxMap, Point origin, Point destination, List<Point> waypoint) {
         MapboxDirections.Builder builder = MapboxDirections.builder()
                 .origin(origin)
                 .destination(destination)
                 .overview(DirectionsCriteria.OVERVIEW_FULL)
                 .profile(DirectionsCriteria.PROFILE_DRIVING)
                 .accessToken(getString(R.string.mapbox_access_token));
+
         if (waypoint.size() > 0) {
             builder.waypoints(waypoint);
         }
@@ -377,31 +484,47 @@ public class RouteActivity extends AppCompatActivity implements  View.OnClickLis
         client.enqueueCall(new Callback<DirectionsResponse>() {
             @Override
             public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+                // You can get the generic HTTP info about the response
+                Toast.makeText(RouteActivity.this, "Response code: " + response.code(), Toast.LENGTH_SHORT).show();
                 if (response.body() == null) {
-                    Toast.makeText(RouteActivity.this, "No routes found, make sure you set the right user and access token.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RouteActivity.this, "No routes found, make sure you set the right user and access token.", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (response.body().routes().size() < 1) {
-                    Toast.makeText(RouteActivity.this, "No routes found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RouteActivity.this, "no routes found", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                // Get the directions route
                 currentRoute = response.body().routes().get(0);
-                distance.setText(currentRoute.distance() + " km ");
+                distance.setText(String.valueOf(currentRoute.distance()));
                 duration.setText(String.valueOf(currentRoute.duration()));
-                nextBtn.setEnabled(true);
-                mMap.getStyle(style -> {
-                    GeoJsonSource source = style.getSourceAs(ROUTE_SOURCE_ID);
-                    if (source != null) {
-                        source.setGeoJson(LineString.fromPolyline(currentRoute.geometry(), PRECISION_6));
-                    }
-                });
+                // Make a toast which displays the route's distance
+                Toast.makeText(RouteActivity.this, currentRoute.distance() + "km", Toast.LENGTH_SHORT).show();
+
+                if (mapboxMap != null) {
+                    mapboxMap.getStyle(new Style.OnStyleLoaded() {
+                        @Override
+                        public void onStyleLoaded(@NonNull Style style) {
+
+                            // Retrieve and update the source designated for showing the directions route
+                            GeoJsonSource source = style.getSourceAs(ROUTE_SOURCE_ID);
+
+                            // Create a LineString with the directions route's geometry and
+                            // reset the GeoJSON source for the route LineLayer source
+                            if (source != null) {
+                                source.setGeoJson(LineString.fromPolyline(currentRoute.geometry(), PRECISION_6));
+                            }
+                        }
+                    });
+                }
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place1.getPosition(), 10));
             }
 
             @Override
-            public void onFailure(Call<DirectionsResponse> call, Throwable t) {
-                Toast.makeText(RouteActivity.this, "error:" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<DirectionsResponse> call, Throwable throwable) {
+                Toast.makeText(RouteActivity.this, "Error: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place1.getPosition(), 10));
     }
 
     @Override
@@ -420,21 +543,19 @@ public class RouteActivity extends AppCompatActivity implements  View.OnClickLis
 
             /*TextView teksti = (TextView) findViewById(R.id.testailua);
             teksti.setText();*/
-            Toast.makeText(this, date+ " " + time + " " + passenger + " " + price + " " + range, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, date + " " + time + " " + passenger + " " + price + " " + range, Toast.LENGTH_SHORT).show();
 
         }
     }
 
     @Override
     public void onMapReady(@NonNull @NotNull MapboxMap mapboxMap) {
-        mMap = mapboxMap;
-        mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
-            @Override
-            public void onStyleLoaded(@NonNull Style style) {
 
-                LatLng loc = new LatLng(26.8467, 80.9462);
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16));
-            }
+        mMap = mapboxMap;
+        mapboxMap.setStyle(Style.MAPBOX_STREETS, style -> {
+            this.style = style;
+            LatLng loc = new LatLng(26.8467, 80.9462);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18));
         });
     }
 

@@ -56,7 +56,7 @@ public class BookedTripsInfoActivity extends AppCompatActivity implements View.O
             leaveTimeTV.setText(CalendarHelper.getFullTimeString(mRoute.getLeaveTime()));
             durationTV.setText(mRoute.getDuration());
             distanceTV.setText(mRoute.getDistance() + " km");
-            priceTV.setText(df.format((double)mRoute.getPrice() * (double)mRoute.getDistance()) + " €");
+            priceTV.setText(df.format((double)mRoute.getPrice() * (double)mRoute.getDistance()) + " Rs");
         }
         if(mUser != null)
         {

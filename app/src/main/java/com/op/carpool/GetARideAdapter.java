@@ -148,7 +148,7 @@ public class GetARideAdapter extends BaseAdapter {
                 @Override
                 public void dataParsed(String output) {
                     float finalPrice = tripList.get(position).getPrice() * Float.parseFloat(output);
-                    holder.price.setText(String.format("%.2f", finalPrice) + "€");
+                    holder.price.setText(String.format("%.2f", finalPrice) + "Rs");
                 }
             });
             getRoute.execute(getUserStartPoint(), getUserEndPoint());
